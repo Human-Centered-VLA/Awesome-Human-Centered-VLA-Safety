@@ -30,13 +30,13 @@ This is the Github link to organize papers in the survey.
 
 
 <details open>
-<summary><b>I. Design-Time Safety</b> (X papers)</summary>
+<summary><b>I. Design-Time Safety</b></summary>
 
 <details open>
 <summary><i>A. Learning-based Alignment</i></summary>
 
 <details open>
-<summary>Direct E2E Models</summary>
+<summary>Direct Control Alignment</summary>
 
 <p>
 These methods characterize reactive control safety strategies typically identified as System 1.
@@ -63,7 +63,7 @@ These methods characterize reactive control safety strategies typically identifi
 
 
 <details open>
-<summary>Reasoning-Based E2E Models</summary>
+<summary>Reasoning-Augmented Control Alignment</summary>
 <p>
 These models augment reactive (System 1) policies with reasoning (System 2) to infer actions based on safety factors and/or predicted outcomes.
 </p>
@@ -112,7 +112,7 @@ These models augment reactive (System 1) policies with reasoning (System 2) to i
 </details>
 
 <details open>
-<summary>Agentic Models (x3 papers)</summary>
+<summary>Agentic Action Alignment</summary>
 <p>
 These models relie on safety-aligned LLMs/VLMs to select and sequence actions via planners or action APIs that directly interface with robotic systems, enabling agentic System 2 control.
 </p>
