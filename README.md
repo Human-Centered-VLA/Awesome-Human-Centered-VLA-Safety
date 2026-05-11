@@ -51,7 +51,7 @@ These methods characterize reactive control safety strategies typically identifi
 - [NavDP: Learning Sim-to-Real Navigation Diffusion Policy with Privileged Information Guidance](https://arxiv.org/abs/2505.08712). *arXiv 2505.08712*, 2025.
 
 
-<summary>Constraint-Enforced Safety</summary>
+<summary>Control-Constrained Safety</summary>
 
 - [Human-Guided Reinforcement Learning With Sim-to-Real Transfer for Autonomous Navigation](https://ieeexplore.ieee.org/document/10250993). TPAMI, 2023.
 
