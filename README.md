@@ -1,15 +1,39 @@
 <div align="center">
 
-# Towards Human-Centered Safety in Vision-Language-Action Policies for Robotics: A Survey and Outlook
+# Towards Human-Centered Safety in Vision-Language-Action Robot Control
+
+### A Survey and Outlook
+
+**A curated reading list for semantic action safety in embodied AI**
+
+[Surveyed Papers](#surveyed-papers) · [Taxonomy](#taxonomy-at-a-glance) · [Related Work](#related-papers) · [Contributing](#contributing)
 
 </div>
 
+---
+
 ## Overview
 
-This is the Github link to organize papers in the survey.
+This repository accompanies the survey **“Towards Human-Centered Safety in Vision-Language-Action Robot Control: A Survey and Outlook.”** It organizes research on how vision-language-action (VLA) systems can recognize, reason about, and avoid unsafe behavior throughout the robotics lifecycle.
+
+The collection centers on three complementary stages:
+
+- **Design time:** learning alignment and scaling safety-critical data.
+- **Deployment time:** runtime guardrails, out-of-distribution handling, and defenses against attacks.
+- **Validation time:** safety benchmarks, robustness stress tests, and situational evaluation.
+
+## Taxonomy at a Glance
+
+| Lifecycle stage | Core question | Topics |
+| --- | --- | --- |
+| **Design time** | How can safety be learned before deployment? | Control and reasoning alignment, world models, safety-critical data |
+| **Deployment time** | How can unsafe actions be detected or corrected online? | Control and task guardrails, OOD safety, adversarial and backdoor defenses |
+| **Validation time** | How can safety claims be evaluated systematically? | General benchmarks, robustness evaluation, scenario-based stress testing |
+
+## Related Papers
 
 <details open>
-<summary><b>Related papers</b></summary>
+<summary><b>Background surveys, perspectives, and standards</b></summary>
 
 - [A Pathway Study for Future Humanoid Standards](https://www.therobotreport.com/wp-content/uploads/2025/09/IEEE-Humanoid-Report-of-Future-Standards-Development.pdf). *IEEE Robotics and Automation Society*, 2025.  
 
@@ -23,26 +47,34 @@ This is the Github link to organize papers in the survey.
 
 - [Position: Good Embodied Reward Models Need Bad Behavior Data](https://arxiv.org/abs/2406.06087). *arXiv 2406.06087*, 2024.  
 
+- [Embodied AI: Emerging Risks and Opportunities for Policy Action](https://arxiv.org/abs/2509.00117). *arXiv 2509.00117*, 2025.
+
+- [Beyond Alignment: Why Robotic Foundation Models Need Context-Aware Safety](https://doi.org/10.1126/scirobotics.aef2191). *Science Robotics*, 2026.
+
 </details>
 
 
 ## Surveyed Papers
 
+Expand each lifecycle stage to browse its papers. Some papers appear in more than one category when they contribute to multiple parts of the safety lifecycle.
+
 
 <details open>
-<summary><b>I. Design-Time Safety</b></summary>
+<summary><b>I. Design-Time Safety</b> — learning safe behavior and improving data coverage</summary>
 
 <details open>
-<summary><i>A. Learning-based Alignment</i></summary>
+<summary><b>A. Learning-Based Alignment</b></summary>
 
 <details open>
-<summary>Direct Control Alignment</summary>
+<summary><b>Direct Control Alignment</b></summary>
 
 <p>
 These methods characterize reactive control safety strategies typically identified as System 1.
 </p>
 
-<summary>Imitation-Driven Safety</summary>
+#### Imitation-Driven Safety
+
+These methods learn collision avoidance and goal-reaching behavior from demonstrations. ViNT and NoMaD establish broad navigation priors, while NavDP adds safety-oriented trajectory data and a learned critic. Their strength is scalable reactive control; their limitation is that safety remains bounded by what demonstrations cover.
 
 - [ViNT: A Foundation Model for Visual Navigation](https://arxiv.org/abs/2306.14846). CoRL, 2023.
 
@@ -51,7 +83,9 @@ These methods characterize reactive control safety strategies typically identifi
 - [NavDP: Learning Sim-to-Real Navigation Diffusion Policy with Privileged Information Guidance](https://arxiv.org/abs/2505.08712). *arXiv 2505.08712*, 2025.
 
 
-<summary>Control-Constrained Safety</summary>
+#### Control-Constrained Safety
+
+Control-constrained methods introduce explicit penalties, rewards, or intervention signals during learning. They move beyond passive imitation by teaching policies to avoid collisions, respect human proximity, and recover from unsafe states, although the learned constraint is only as reliable as its reward and training coverage.
 
 - [Human-Guided Reinforcement Learning With Sim-to-Real Transfer for Autonomous Navigation](https://ieeexplore.ieee.org/document/10250993). TPAMI, 2023.
 
@@ -63,12 +97,14 @@ These methods characterize reactive control safety strategies typically identifi
 
 
 <details open>
-<summary>Reasoning-Augmented Control Alignment</summary>
+<summary><b>Reasoning-Augmented Control Alignment</b></summary>
 <p>
 These models augment reactive (System 1) policies with reasoning (System 2) to infer actions based on safety factors and/or predicted outcomes.
 </p>
 
-<summary>Reasoning-Constrained Safety</summary>
+#### Reasoning-Constrained Safety
+
+This line of work makes safety-relevant semantics explicit in intermediate reasoning. Driving models ground traffic objects, rules, styles, and possible hazards, while manipulation and navigation models use feasibility reasoning to reject unsafe actions. Explicit reasoning improves interpretability, but plausible explanations do not by themselves guarantee safe control.
 
 - [Tokenize the World into Object-level Knowledge to Address Long-tail Events in Autonomous Driving](https://arxiv.org/abs/2407.00959). CoRL, 2024.
 
@@ -88,7 +124,9 @@ These models augment reactive (System 1) policies with reasoning (System 2) to i
 
 - [Gemini Robotics: Bringing AI into the Physical World](https://arxiv.org/abs/2503.20020). *arXiv 2503.20020*, 2025.
 
-<summary>World-Model-Based Safety</summary>
+#### World-Model-Based Safety
+
+World-model approaches train policies against predicted consequences rather than only immediate actions. Failure data, takeover boundaries, counterfactuals, and latent rollouts help models anticipate collisions and recovery needs. Their central bottleneck is prediction fidelity: an imagined future can only support safety when it preserves the relevant physics and semantics.
 
 - [Think2Drive: Efficient Reinforcement Learning by Thinking in Latent World Model for Quasi-Realistic Autonomous Driving (in CARLA-v2)](https://arxiv.org/abs/2402.16720). ECCV, 2024.
 
@@ -103,7 +141,9 @@ These models augment reactive (System 1) policies with reasoning (System 2) to i
 - [Counterfactual VLA: Self-Reflective Vision-Language-Action Model with Adaptive Reasoning](https://arxiv.org/abs/2512.24426). CVPR, 2026.
 
 
-<summary>Hybrid</summary>
+#### Hybrid Approaches
+
+Hybrid methods couple structured reasoning with learned control scores or world models. This combination can connect causal explanations to trajectory selection, but errors may still propagate across the reasoning-to-control interface.
 
 - [Alpamayo-R1: Bridging Reasoning and Action Prediction for Generalizable Autonomous Driving in the Long Tail](https://arxiv.org/abs/2511.00088). *arXiv 2511.00088*, 2025.
 
@@ -112,12 +152,12 @@ These models augment reactive (System 1) policies with reasoning (System 2) to i
 </details>
 
 <details open>
-<summary>Agentic Action Alignment</summary>
+<summary><b>Agentic Action Alignment</b></summary>
 <p>
-These models relie on safety-aligned LLMs/VLMs to select and sequence actions via planners or action APIs that directly interface with robotic systems, enabling agentic System 2 control.
+These models rely on safety-aligned LLMs or VLMs to select and sequence actions through planners or action APIs that directly interface with robotic systems, enabling agentic System 2 control.
 </p>
 
-These are susceptible to risks such as,
+**Risks**
 
 - [Safety Not Found (404): Hidden Risks of LLM-Based Robotics Decision Making](https://arxiv.org/abs/2407.09179). *arXiv 2407.09179*, 2024.  
 
@@ -128,7 +168,9 @@ These are susceptible to risks such as,
 - [AGENTSAFE: Benchmarking the Safety of Embodied Agents on Hazardous Instructions](https://arxiv.org/abs/2506.14697). *arXiv 2506.14697*, 2025.
 
 
-Meanwhile, defenses are reliant on the base MLLM,
+**Alignment and defenses**
+
+Agentic alignment primarily inherits refusal and safety-reasoning capabilities from the underlying multimodal model. Constitutions and physical-danger benchmarks improve high-level judgment, yet reliable deployment still requires verifying that safe reasoning is translated into safe tool calls and robot actions.
 
 - [HarmBench: A Standardized Evaluation Framework for Automated Red Teaming and Robust Refusal](https://arxiv.org/abs/2402.04249). ICML, 2024.
 
@@ -143,10 +185,12 @@ Meanwhile, defenses are reliant on the base MLLM,
 
 
 <details open>
-<summary><i>B. Safety Data Scaling</i></summary>
+<summary><b>B. Safety Data Coverage</b></summary>
 
 <details open>
-<summary>Safety-Critical Data Sampling</summary>
+<summary><b>Safety-Critical Data Sampling</b></summary>
+
+Sampling methods concentrate limited training and evaluation budgets on rare, diverse, or high-impact events. They improve efficiency near the safety boundary, but cannot recover hazards that were never observed or reliably represented in deployment logs.
 
 - [SSE: Multimodal Semantic Data Selection and Enrichment for Industrial-scale Data Assimilation](https://arxiv.org/abs/2409.13860). KDD, 2025.
 
@@ -157,9 +201,11 @@ Meanwhile, defenses are reliant on the base MLLM,
 </details>
 
 <details open>
-<summary>Safety-Critical Data Generation</summary>
+<summary><b>Safety-Critical Data Generation</b></summary>
 
-Simulation-based strategies have been proposed to collect data via scripted motions,
+Generation methods create failures and long-tail hazards that are costly or unsafe to collect in the real world. Scripted simulation offers control, while neural world models offer scale and diversity; both depend on whether the generated scenarios preserve the causal factors that make real behavior unsafe.
+
+Simulation-based strategies collect data through scripted motions:
 
 - [NavDP: Learning Sim-to-Real Navigation Diffusion Policy with Privileged Information Guidance](https://arxiv.org/abs/2505.08712). *arXiv 2505.08712*, 2025.
 
@@ -167,7 +213,7 @@ Simulation-based strategies have been proposed to collect data via scripted moti
 
 - [Avoid Everything: Model-Free Collision Avoidance with Expert-Guided Fine-Tuning](https://proceedings.mlr.press/v270/fishman25a.html). CoRL, 2025.
 
-Others constructs augmented environments that expose models to rare but physically plausible hazards with neural world modeling,
+Other methods construct augmented environments that expose models to rare but physically plausible hazards through neural world modeling:
 
 - [GAIA-1: A Generative World Model for Autonomous Driving](https://arxiv.org/abs/2309.17080). *arXiv 2309.17080*, 2023.
 
@@ -187,20 +233,22 @@ Others constructs augmented environments that expose models to rare but physical
 ---
 
 <details open>
-<summary><b>Deployment-Time Safety</b></summary>
+<summary><b>II. Deployment-Time Safety</b> — monitoring, filtering, and intervention at runtime</summary>
 
 <details open>
-<summary><i>A. Safe Action Guardrail</i></summary>
+<summary><b>A. Action Safeguards</b></summary>
 
 <details open>
-<summary>1) Control-Level Guardrail</summary>
+<summary><b>1. Control-Level Safeguards</b></summary>
 
-The set of safety filters that check robot predicted controls against explicit constraints, applies corrections if needed, and selects safely executable actions.
+These safety filters check predicted robot controls against explicit constraints, apply corrections when needed, and select safely executable actions.
 
 <details open>
-<summary>(a) Control-Theoretic Filters</summary>
+<summary><b>a. Control-Theoretic Filtering</b></summary>
 
-<summary>Reachability-based filters</summary>
+#### Reachability-Based Filters
+
+Reachability filters ask whether a proposed goal, trajectory, or action can remain inside a safe set. The papers progress from geometric collision avoidance toward latent and runtime-parameterized safety concepts, trading stronger coverage for greater dependence on learned state representations.
 
 - [From Demonstrations to Safe Deployment: Path-Consistent Safety Filtering for Diffusion Policies](https://arxiv.org/abs/2511.06385). *arXiv 2511.06385*, 2025.  
 
@@ -217,19 +265,26 @@ The set of safety filters that check robot predicted controls against explicit c
 - [How to Train Your Latent Control Barrier Function: Smooth Safety Filtering Under Hard-to-Model Constraints](https://arxiv.org/abs/2511.18606). *arXiv 2511.18606*, 2025.  
 
 
-<summary>Control-barrier function filters</summary>
+#### Control-Barrier Function Filters
+
+Control-barrier methods convert grounded hazards into local action constraints and minimally modify unsafe commands. They are efficient enough for step-level intervention, but contextual or hidden hazards must first be detected and expressed in a control-compatible form.
 
 - [VLSA: Vision-Language-Action Models with Plug-and-Play Safety Constraint Layer](https://arxiv.org/abs/2512.11891). *arXiv 2512.11891*, 2025.  
 
 - [Safe-Night VLA: Seeing the Unseen via Thermal-Perceptive Vision-Language-Action Models for Safety-Critical Manipulation](https://arxiv.org/abs/2603.05754). *arXiv 2603.05754*, 2026.
-Handling perceptual blind spots (e.g., is that stove hot? is that a reflection or a real object?) with safety constraints and runtime safety filter.
+
+  Handles perceptual blind spots—such as hot objects and reflections—using safety constraints and a runtime safety filter.
+
+- [Contextual Safety Reasoning and Grounding for Open-World Robots](https://arxiv.org/abs/2602.19983). *arXiv 2602.19983*, 2026.
 
 </details>
 
 <details open>
-<summary>(b) Model Predictive Filters</summary>
+<summary><b>b. Predictive Filtering</b></summary>
 
-<summary>Value estimation</summary>
+#### Value Estimation
+
+Value-based filters sample candidate futures and select the one with the best predicted safety and task outcome. This supports geometric, semantic, and social criteria, although it cannot reject an unsafe outcome that is neither sampled nor recognized by the evaluator.
 
 - [Do What You Say: Steering Vision-Language-Action Models via Runtime Reasoning-Action Alignment Verification](https://arxiv.org/abs/2510.16281). *arXiv 2510.16281*, 2025.  
 
@@ -239,7 +294,9 @@ Handling perceptual blind spots (e.g., is that stove hot? is that a reflection o
 
 <!-- - [Scaling Verification Can Be More Effective than Scaling Policy Learning for Vision-Language-Action Alignment](https://arxiv.org/abs/2602.12281). *arXiv 2602.12281*, 2026.   -->
 
-<summary>Neural world modeling</summary>
+#### Neural World Modeling
+
+These methods evaluate imagined rollouts before execution. They broaden filtering to delayed and semantic consequences, but hallucinated objects, missing interactions, or inaccurate dynamics can undermine the safety judgment.
 
 - [From Foresight to Forethought: VLM-in-the-Loop Policy Steering via Latent Alignment](https://arxiv.org/abs/2502.01828). *arXiv 2502.01828*, 2025.  
 
@@ -251,9 +308,11 @@ Handling perceptual blind spots (e.g., is that stove hot? is that a reflection o
 </details>
 
 <details open>
-<summary>2) Task-Level Guardrail</summary>
+<summary><b>2. Task-Level Guardrail</b></summary>
 
-<summary>Formal runtime verification</summary>
+#### Formal Runtime Verification
+
+Runtime-verification methods encode safety as temporal logic, automata, invariants, or executable predicates. Their decisions are inspectable and can trigger blocking or replanning, but open-world safety requirements are difficult to specify and ground completely.
 
 <!-- 104 130-139 148-149 -->
 
@@ -279,7 +338,9 @@ Handling perceptual blind spots (e.g., is that stove hot? is that a reflection o
 
 - [Ask, Reason, Assist: Decentralized Robot Collaboration via Language and Logic](https://arxiv.org/abs/2509.23506). *arXiv 2509.23506*, 2025.
 
-<summary>Semantic verification</summary>
+#### Semantic Verification
+
+Semantic verifiers use learned reasoning, affordance checks, constitutions, or predicted consequences when hazards cannot be fully formalized. They cover more contextual risks than fixed rules, while offering weaker guarantees and inheriting the evaluator model's failure modes.
 
 - [AGENTSAFE: Benchmarking the Safety of Embodied Agents on Hazardous Instructions](https://arxiv.org/abs/2506.14697). *arXiv 2506.14697*, 2025.
 
@@ -294,9 +355,11 @@ Handling perceptual blind spots (e.g., is that stove hot? is that a reflection o
 </details>
 
 <details open>
-<summary><i>B. Safety against OOD</i></summary>
+<summary><b>B. OOD Safety</b></summary>
 
-<summary>OOD detection</summary>
+#### OOD Detection
+
+Detection methods treat semantic novelty or uncertainty as evidence that the policy may have left its reliable operating regime. Detection alone is insufficient unless it is connected to a timely fallback, clarification, or human handover.
 
 - [Semantic Anomaly Detection with Large Language Models](https://arxiv.org/abs/2305.11307). *Autonomous Robots*, 2023.  
 
@@ -304,7 +367,9 @@ Handling perceptual blind spots (e.g., is that stove hot? is that a reflection o
 
 - [Real-Time Anomaly Detection and Reactive Planning with Large Language Models](https://arxiv.org/abs/2407.08735). *arXiv 2407.08735*, 2024.  
 
-<summary>OOD-aware control prediction</summary>
+#### OOD-Aware Control Prediction
+
+These methods translate uncertainty into action selection, replanning, or deferral. Their shared challenge is calibration: the robot must distinguish harmless novelty from ambiguity, capability mismatch, and imminent physical risk.
 
 - [Real-Time Out-of-Distribution Failure Prevention via Multi-Modal Reasoning](https://arxiv.org/abs/2505.10547). *arXiv 2505.10547*, 2025.  
 
@@ -316,15 +381,17 @@ Handling perceptual blind spots (e.g., is that stove hot? is that a reflection o
 </details>
 
 <details open>
-<summary><i>C. Safety against Attacks</i></summary>
+<summary><b>C. Adversarial Safety</b></summary>
 
 <details open>
-<summary>1) Control-Level Defense</summary>
+<summary><b>1. Control-Level Defense</b></summary>
 
 <details open>
-<summary>(a) Adversarial attack risks & defenses</summary>
+<summary><b>a. Adversarial Action Risks and Safety</b></summary>
 
-<summary>Attack risks</summary>
+#### Attack Risks
+
+Adversarial attacks perturb observations, prompts, or representations so that perception errors become unsafe motion. The literature demonstrates increasingly physical and transferable attacks, while evaluations still emphasize task failure more often than direct human or cumulative safety harm.
 
 - [AdvDO: Realistic Adversarial Attacks for Trajectory Prediction](https://arxiv.org/abs/2209.08744). *arXiv 2209.08744*, 2022.  
 
@@ -371,7 +438,9 @@ Handling perceptual blind spots (e.g., is that stove hot? is that a reflection o
 
 - [DepthVanish: Optimizing Adversarial Interval Structures for Stereo-Depth-Invisible Patches](https://arxiv.org/abs/2506.16690). *arXiv 2506.16690*, 2025.   -->
 
-<summary>Defenses</summary>
+#### Defenses
+
+Current defenses combine adversarial training, representation checks, smoothing, and runtime filtering. They improve robustness to known perturbation families, but evidence remains limited for adaptive attacks operating through closed-loop robot–environment interaction.
 
 - [Exploring the Adversarial Vulnerabilities of Vision-Language-Action Models in Robotics](https://arxiv.org/abs/2411.13587). *ICCV*, 2025.  
 
@@ -384,9 +453,11 @@ Handling perceptual blind spots (e.g., is that stove hot? is that a reflection o
 </details>
 
 <details open>
-<summary>(b) Backdoor attack risks & defenses</summary>
+<summary><b>b. Backdoor Action Risks and Safety</b></summary>
 
-<summary>Attack risks</summary>
+#### Attack Risks
+
+Backdoor attacks preserve normal behavior until a visual, semantic, or action-level trigger activates a malicious policy. This makes them difficult to detect with ordinary task metrics and especially dangerous when triggers persist across a long-horizon rollout.
 
 - [Everyday Object Meets Vision-and-Language Navigation Agent via Backdoor](https://proceedings.neurips.cc/paper_files/paper/2024/hash/58e6c003c9fb3992265005ff6aef1913-Abstract-Conference.html). *NeurIPS*, 2024.  
 
@@ -404,7 +475,9 @@ Handling perceptual blind spots (e.g., is that stove hot? is that a reflection o
 
 -->
 
-<summary>Defenses</summary>
+#### Defenses
+
+Backdoor defenses remain less mature than attack methods. Existing work mainly evaluates trigger robustness or adapts generic filtering, leaving a gap in end-to-end guarantees for physically realizable and multimodal triggers.
 
 - [AttackVLA: Benchmarking Adversarial and Backdoor Attacks on Vision-Language-Action Models](https://arxiv.org/abs/2511.12149). *arXiv 2511.12149*, 2025.  
 
@@ -415,13 +488,13 @@ Handling perceptual blind spots (e.g., is that stove hot? is that a reflection o
 </details>
 
 <details open>
-<summary>2) Plan-Level Defense</summary>
+<summary><b>2. Task-Level Defense</b></summary>
 
-</details>
+#### Attack Risks
 
-<summary>Attack risks</summary>
+Task-level attacks manipulate intent, context, or long-horizon planning rather than a single control output. An unsafe plan may remain locally plausible at every step, so evaluation must connect instruction semantics and hidden triggers to their eventual physical consequences.
 
-May include semantic jailbreaking,
+Semantic jailbreaking includes:
 
 - [SceneTAP: Scene-Coherent Typographic Adversarial Planner against Vision-Language Models in Real-World Environments](https://arxiv.org/abs/2412.00114). *arXiv 2412.00114*, 2024.
 
@@ -435,7 +508,7 @@ May include semantic jailbreaking,
 
 - [PhysPatch: A Physically Realizable and Transferable Adversarial Patch Attack for Multimodal Large Language Models-based Autonomous Driving Systems](https://arxiv.org/abs/2508.05167). *arXiv 2508.05167*, 2025.  
 
-or backdooring,
+Backdoor attacks include:
 
 - [Physical Backdoor Attack Can Jeopardize Driving with Vision-Large-Language Models](https://arxiv.org/abs/2404.12916). *arXiv 2404.12916*, 2024.  
 
@@ -445,7 +518,9 @@ or backdooring,
 
 - [TrojanRobot: Physical-World Backdoor Attacks Against VLM-based Robotic Manipulation](https://arxiv.org/abs/2411.11683). *arXiv 2411.11683*, 2024.  
 
-<summary>Defenses</summary>
+#### Defenses
+
+Task-level defenses use semantic consistency checks, safe prompting, symbolic constraints, and runtime action verification. Their key challenge is cross-layer fidelity: detecting harmful intent early enough to prevent a coherent-looking plan from becoming unsafe embodied action.
 
 - [SceneTAP: Scene-Coherent Typographic Adversarial Planner against Vision-Language Models in Real-World Environments](https://arxiv.org/abs/2412.00114). *arXiv 2412.00114*, 2024.
 
@@ -457,18 +532,23 @@ or backdooring,
 
 </details>
 
+</details>
 
 </details>
 
 ---
 
 <details open>
-<summary><b>Validation-Time Safety</b></summary>
+<summary><b>III. Validation-Time Safety</b> — benchmarking, stress testing, and safety evidence</summary>
 
 <details open>
-<summary><i>A. General Safety Benchmarks</i></summary>
+<summary><b>A. Safety Benchmarking</b></summary>
 
-Evaluate general unsafe action recognition and avoidance (top-down).
+Safety benchmarking separates **reasoning-centric evaluation**, which asks whether unsafe actions should be proposed at all, from **control-centric evaluation**, which measures what happens after language and perception are grounded into motion.
+
+#### Reasoning-Centric Evaluation
+
+These benchmarks test hazard understanding, refusal, rule following, and multi-step planning before physical execution. They make semantic failures easier to attribute, but many still represent people mainly as labels or hazards rather than interactive agents with intent and preferences.
 
 - [WaymoQA: A Multi-View Visual Question Answering Dataset for Safety-Critical Reasoning in Autonomous Driving](https://arxiv.org/abs/2511.20022). *arXiv 2511.20022*, 2025.  
 
@@ -480,7 +560,19 @@ Evaluate general unsafe action recognition and avoidance (top-down).
 
 - [Generating Robot Constitutions & Benchmarks for Semantic Safety](https://arxiv.org/abs/2503.08663). *arXiv 2503.08663*, 2025.  
 
-- [WOD-E2E: Waymo Open Dataset for End-to-End Driving in Challenging Long-Tail Scenarios](https://arxiv.org/abs/2406.14547). *arXiv 2406.14547*, 2024.  
+- [SafePlan: Leveraging Formal Logic and Chain-of-Thought Reasoning for Enhanced Safety in LLM-Based Robotic Task Planning](https://arxiv.org/abs/2503.06892). *arXiv 2503.06892*, 2025.
+
+- [A Framework for Benchmarking and Aligning Task-Planning Safety in LLM-Based Embodied Agents](https://arxiv.org/abs/2504.14650). *arXiv 2504.14650*, 2025.
+
+- [AgentSafe: Benchmarking the Safety of Embodied Agents on Hazardous Instructions](https://arxiv.org/abs/2506.14697). *arXiv 2506.14697*, 2025.
+
+- [SafeAgentBench: A Benchmark for Safe Task Planning of Embodied LLM Agents](https://arxiv.org/abs/2412.13178). *arXiv 2412.13178*, 2024.
+
+#### Control-Centric Evaluation
+
+Control-centric benchmarks expose unsafe trajectories, contact, rule violations, and failures under distribution shift. Their shared contribution is to separate task completion from safety, although metrics beyond collisions and aggregate success remain uneven.
+
+- [WOD-E2E: Waymo Open Dataset for End-to-End Driving in Challenging Long-Tail Scenarios](https://arxiv.org/abs/2510.26125). *arXiv 2510.26125*, 2025.
 
 - [Bench2Drive: Towards Multi-Ability Benchmarking of Closed-Loop End-to-End Autonomous Driving](https://arxiv.org/abs/2406.03877). *arXiv 2406.03877*, 2024.  
 
@@ -488,30 +580,34 @@ Evaluate general unsafe action recognition and avoidance (top-down).
 
 - [Fail2Drive: Benchmarking Closed-Loop Driving Generalization](https://arxiv.org/abs/2604.08535). *arXiv 2604.08535*, 2026.
 
+- [SidewalkBench: Benchmarking Visual Navigation on Urban Sidewalks](https://arxiv.org/abs/2606.16953). *arXiv 2606.16953*, 2026.
+
 - [SafeVLA: Towards Safety Alignment of Vision-Language-Action Model via Constrained Learning](https://arxiv.org/abs/2503.03480). NeurIPS Spotlight, 2025.
 
 - [VLA-Arena: An Open-Source Framework for Benchmarking Vision-Language-Action Models](https://arxiv.org/abs/2510.13412). *arXiv 2510.13412*, 2025.  
 
 - [Manipulation Facing Threats: Evaluating Physical Vulnerabilities in End-to-End Vision Language Action Models](https://arxiv.org/abs/2409.13174). *arXiv 2409.13174*, 2024.  
 
-- [SafePlan: Leveraging Formal Logic and Chain-of-Thought Reasoning for Enhanced Safety in LLM-Based Robotic Task Planning](https://arxiv.org/abs/2503.06892). *arXiv 2503.06892*, 2025.  
-
 - [ANNIE: Be Careful of Your Robots](https://arxiv.org/abs/2509.03383). *arXiv 2509.03383*, 2025.  
 
 - [VLSA: Vision-Language-Action Models with Plug-and-Play Safety Constraint Layer](https://arxiv.org/abs/2512.11891). *arXiv 2512.11891*, 2025.  
 
-- [AgentSafe: Benchmarking the Safety of Embodied Agents on Hazardous Instructions](https://arxiv.org/abs/2506.14697). *arXiv 2506.14697*, 2025.  
+- [Social-LLaVA: Enhancing Social Robot Navigation through Human-Language Reasoning](https://arxiv.org/abs/2501.09024). *arXiv 2501.09024*, 2025.
 
-- [SafeAgentBench: A Benchmark for Safe Task Planning of Embodied LLM Agents](https://arxiv.org/abs/2412.13178). *arXiv 2412.13178*, 2024.  
+- [HazardArena: Evaluating Semantic Safety in Vision-Language-Action Models](https://arxiv.org/abs/2604.12447). *arXiv 2604.12447*, 2026.
 
-- [Social-LLaVA: Enhancing Social Robot Navigation through Human-Language Reasoning](https://arxiv.org/abs/2501.09024). *arXiv 2501.09024*, 2025.  
+- [LIBERO-Safety: A Comprehensive Benchmark for Physical and Semantic Safety in Vision-Language-Action Models](https://arxiv.org/abs/2606.23686). *arXiv 2606.23686*, 2026.
 
 </details>
 
 <details open>
-<summary><i>B. Robustness Benchmarks</i></summary>
+<summary><b>B. Robustness Stress-Testing</b></summary>
 
-Evaluate resilience to perturbed inputs and reasoning failures (stress-test).
+Robustness stress-testing actively searches for conditions under which safety criteria fail, complementing fixed benchmarks that measure performance on known cases.
+
+#### Perturbation and Adversarial Testing
+
+These studies alter visual inputs, language instructions, or embodiment conditions to expose brittle grounding and control. A useful stress test should isolate a safety-relevant factor without introducing artifacts that would not occur in deployment.
 
 - [Embodied Red Teaming for Auditing Robotic Foundation Models](https://arxiv.org/abs/2411.18676). *arXiv 2411.18676*, 2024.  
 
@@ -519,14 +615,13 @@ Evaluate resilience to perturbed inputs and reasoning failures (stress-test).
 
 - [Rethinking the Embodied Gap in Vision-and-Language Navigation: A Holistic Study of Physical and Visual Disparities](https://arxiv.org/abs/2507.13019). *ICCV*, 2025.  
 
-- [Red-Teaming Vision-Language-Action Models via Quality Diversity Prompt Generation for Robust Robot Policies](https://arxiv.org/abs/2603.12510). *arXiv 2603.12510*, 2026.  
+- [RoboView-Bias: Benchmarking Visual Bias in Embodied Agents for Robotic Manipulation](https://arxiv.org/abs/2509.22356). *arXiv 2509.22356*, 2025.
 
-</details>
+- [Red-Teaming Vision-Language-Action Models via Quality Diversity Prompt Generation for Robust Robot Policies](https://arxiv.org/abs/2603.12510). *arXiv 2603.12510*, 2026.
 
-<details open>
-<summary><i>C. Situational Benchmarks</i></summary>
+#### Safety-Critical Scenario Generation
 
-Evaluate safety under context-dependent and embodied scenarios (bottom-up).
+Scenario-generation methods synthesize rare or counterfactual failures that fixed datasets may miss. Simulation offers controlled feasibility, while video world models offer scalable imagined futures; both require strong physical and semantic fidelity for the discovered failures to be meaningful.
 
 - [FREA: Feasibility-Guided Generation of Safety-Critical Scenarios with Reasonable Adversariality](https://arxiv.org/abs/2406.02983). *arXiv 2406.02983*, 2024.  
 
@@ -537,6 +632,8 @@ Evaluate safety under context-dependent and embodied scenarios (bottom-up).
 
 - [Evaluating Gemini Robotics Policies in a Veo World Simulator](https://arxiv.org/abs/2512.10675). *arXiv 2512.10675*, 2025.  
 
+- [StressDream: Steering Video World Models for Robust Policy Evaluation and Improvement](https://arxiv.org/abs/2606.00267). *arXiv 2606.00267*, 2026.
+
 </details>
 
 
@@ -545,6 +642,16 @@ Evaluate safety under context-dependent and embodied scenarios (bottom-up).
 
 ## Related Projects
 
-- [Awesome-Large-Model-Safety](https://github.com/xingjunm/Awesome-Large-Model-Safety) -- Safety at Scale: A Comprehensive Survey of Large Model and Agent Safety
+- [Awesome-Large-Model-Safety](https://github.com/xingjunm/Awesome-Large-Model-Safety) — resources accompanying *Safety at Scale: A Comprehensive Survey of Large Model and Agent Safety*.
 
+## Contributing
 
+Contributions are welcome. When suggesting a paper, please include its title, canonical URL, venue or arXiv identifier, publication year, and the most relevant category in this taxonomy. Please avoid duplicate entries unless a paper genuinely spans multiple lifecycle stages.
+
+---
+
+<div align="center">
+
+If this collection helps your research, consider starring the repository and sharing relevant new work.
+
+</div>
