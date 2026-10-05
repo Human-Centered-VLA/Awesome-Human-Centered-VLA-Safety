@@ -6,7 +6,7 @@
 
 **A curated reading list for semantic action safety in embodied AI**
 
-[Surveyed Papers](#surveyed-papers) · [Taxonomy](#taxonomy-at-a-glance) · [Figures](#figures) · [Replication](#replication) · [Related Work](#related-papers) · [Contributing](#contributing)
+[Surveyed Papers](#surveyed-papers) · [Taxonomy](#taxonomy-at-a-glance) · [Replication](#replication) · [Related Work](#related-papers) · [Contributing](#contributing)
 
 </div>
 
@@ -30,29 +30,9 @@ The collection centers on three complementary stages:
 | **Deployment time** | How can unsafe actions be detected or corrected online? | Control and task guardrails, OOD detection and intervention |
 | **Validation time** | How can safety claims be evaluated systematically? | Safety benchmarks, adversarial and backdoor testing, safety-critical scenarios |
 
-## Figures
-
-These figures follow the numbering in the survey. Select an image to open its source PDF.
-
 ### Figure 1. Human-centered VLA safety taxonomy
 
 [![Lifecycle taxonomy of human-centered VLA safety across design, deployment, and validation.](_figures/figure-1-taxonomy.png)](_figures/Fig-teaser_final_shortened_2.pdf)
-
-### Figure 2. VLA safety research landscape
-
-[![Charts of paper volume, robot embodiments, lifecycle stages, and human, environmental, and social safety scenarios.](_figures/figure-2-landscape.png)](_figures/Fig-meta_v2.pdf)
-
-### Figure 3. Research milestones
-
-[![Timeline of milestones in safety data, semantic control, runtime intervention, and validation.](_figures/figure-3-milestones.png)](_figures/Fig-milestones_2.pdf)
-
-### Figure 4. VLA paradigms
-
-[![Diagrams of monolithic, hierarchical, and agent-based vision-language-action systems.](_figures/figure-4-vla-paradigms.png)](_figures/Fig-VLA-types_final_2.pdf)
-
-### Figure 5. Technical synthesis and open challenges
-
-[![Four requirements for semantic action safety and their corresponding open challenges.](_figures/figure-5-synthesis.png)](_figures/Fig-synthesis-of-requirements_2.pdf)
 
 ## Replication
 
@@ -217,6 +197,12 @@ The [`_replication/`](_replication/) folder contains the code, schema, and tests
 
 Expand each lifecycle stage to browse its papers. Some papers appear in more than one category when they contribute to multiple parts of the safety lifecycle.
 
+### Figure 2. VLA safety research landscape
+
+The survey's corpus analysis shows where the cited work concentrates across embodiments, lifecycle stages, and human, environmental, and social safety scenarios.
+
+[![Charts of paper volume, robot embodiments, lifecycle stages, and human, environmental, and social safety scenarios.](_figures/figure-2-landscape.png)](_figures/Fig-meta_v2.pdf)
+
 <details open>
 <summary><b>I. Design-Time Safety</b> — learning safe behavior and improving data coverage</summary>
 
@@ -334,6 +320,12 @@ Agentic alignment primarily inherits refusal and safety-reasoning capabilities f
 
 </details>
 </details>
+
+### Figure 3. Research milestones
+
+The alignment papers above sit within a longer progression linking safety data, semantic control, runtime intervention, and validation.
+
+[![Timeline of milestones in safety data, semantic control, runtime intervention, and validation.](_figures/figure-3-milestones.png)](_figures/Fig-milestones_2.pdf)
 
 <details open>
 <summary><b>B. Safety Data Coverage</b></summary>
@@ -467,6 +459,12 @@ These methods evaluate imagined rollouts before execution. They broaden filterin
 
 </details>
 </details>
+
+### Figure 4. VLA paradigms
+
+Control-level filters above act near motor outputs; the task-level guardrails below inspect plans and skill calls. These architectures show where each check enters the action pipeline.
+
+[![Diagrams of monolithic, hierarchical, and agent-based vision-language-action systems.](_figures/figure-4-vla-paradigms.png)](_figures/Fig-VLA-types_final_2.pdf)
 
 <details open>
 <summary><b>2. Task-Level Guardrail</b></summary>
@@ -714,6 +712,12 @@ Scenario-generation methods synthesize rare or counterfactual failures that fixe
 </details>
 
 </details>
+
+### Figure 5. Technical synthesis and open challenges
+
+Across the cited design, deployment, and validation work, the survey identifies four linked requirements and the gaps that remain for each.
+
+[![Four requirements for semantic action safety and their corresponding open challenges.](_figures/figure-5-synthesis.png)](_figures/Fig-synthesis-of-requirements_2.pdf)
 
 ## Related Projects
 
