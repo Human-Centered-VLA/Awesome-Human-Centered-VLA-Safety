@@ -6,7 +6,7 @@
 
 **A curated reading list for semantic action safety in embodied AI**
 
-[Surveyed Papers](#surveyed-papers) · [Taxonomy](#taxonomy-at-a-glance) · [Related Work](#related-papers) · [Contributing](#contributing)
+[Surveyed Papers](#surveyed-papers) · [Taxonomy](#taxonomy-at-a-glance) · [Replication](#replication) · [Related Work](#related-papers) · [Contributing](#contributing)
 
 </div>
 
@@ -29,6 +29,10 @@ The collection centers on three complementary stages:
 | **Design time** | How can safety be learned before deployment? | Control and reasoning alignment, world models, safety-critical data |
 | **Deployment time** | How can unsafe actions be detected or corrected online? | Control and task guardrails, OOD detection and intervention |
 | **Validation time** | How can safety claims be evaluated systematically? | Safety benchmarks, adversarial and backdoor testing, safety-critical scenarios |
+
+## Replication
+
+The [`_replication/`](_replication/) folder contains the code, schema, and tests for rebuilding and checking the seven tabs of the VLA Research spreadsheet. Reviewed inputs are supplied separately; see its [README](_replication/README.md) for setup and reproduction steps.
 
 ## Related Papers
 
